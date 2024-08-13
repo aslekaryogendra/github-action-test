@@ -1,4 +1,4 @@
-name: CI
+name: output_test
 on:
   workflow_dispatch:
 
@@ -20,7 +20,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: change_pass
     steps:
-      - env:
+      - name: check the output values
+        if: contains(needs.change_pass.outputs.oldpass_vfdprm1,'vfdprm1')
+        env:
           OLDPASS: ${{ needs.change_pass.outputs.oldpass_vfdprm1 }}
           NEWPASS: ${{ needs.change_pass.outputs.newpass_vfdprm1 }}
         run: |
