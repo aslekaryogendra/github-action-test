@@ -26,5 +26,5 @@ jobs:
           OLDPASS: ${{ needs.change_pass.outputs.oldpass_vfdprm1 }}
           NEWPASS: ${{ needs.change_pass.outputs.newpass_vfdprm1 }}
         run: |
-          echo -e "oldpass=$OLDPASS\n\nnewpass=$NEWPASS"
+          echo -e "oldpass=$OLDPASS\nnewpass=$NEWPASS"
     
