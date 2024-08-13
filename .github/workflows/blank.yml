@@ -3,22 +3,26 @@ on:
   workflow_dispatch:
 
 jobs:
-  job1:
+  change_pass:
     runs-on: ubuntu-latest
     outputs:
-      output1: ${{ steps.step1.outputs.test }}
-      output2: ${{ steps.step2.outputs.test }}
+      oldpass_vfdprm1: ${{ steps.set-pass.outputs.oldPass_vfdprm1 }}
+      newpass_vfdprm1: ${{ steps.set-pass.outputs.newPass_vfdprm1 }}
     steps:
-      - id: step1
-        run: echo "test=hello" >> "$GITHUB_OUTPUT"
-      - id: step2
-        run: echo "test=world" >> "$GITHUB_OUTPUT"
+      - id: set-pass
+        run: |
+          NEWPASS=vfdprm1.$(date +"%b@%Y")
+          OLDPASS=vfdprm1.$(date -d "1 month ago" +"%b@%Y")
+          echo "oldPass_vfdprm1=$OLDPASS" >> "$GITHUB_OUTPUT"
+          echo "newPass_vfdprm1=$NEWPASS" >> "$GITHUB_OUTPUT"
+          
   job2:
     runs-on: ubuntu-latest
-    needs: job1
+    needs: change_pass
     steps:
       - env:
-          OUTPUT1: ${{needs.job1.outputs.output1}}
-          OUTPUT2: ${{needs.job1.outputs.output2}}
-        run: echo "$OUTPUT1 $OUTPUT2"
+          OLDPASS: ${{ needs.change_pass.outputs.oldpass_vfdprm1 }}
+          NEWPASS: ${{ needs.change_pass.outputs.newpass_vfdprm1 }}
+        run: |
+          echo -e "oldpass=$OLDPASS\n\nnewpass=$NEWPASS"
     
