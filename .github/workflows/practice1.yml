@@ -1,0 +1,18 @@
+name: practice1
+on: [push,workflow_dispatch]
+
+jobs:
+  change_pass:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say Hello
+        run: |
+          echo "Hello User !"
+          echo "Welcome to Github Actions"
+
+  job2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Another Hello
+        run: |
+          echo "This is another Hello ! from Job2"
