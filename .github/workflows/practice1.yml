@@ -35,13 +35,8 @@ jobs:
         run: |
           echo "github context is: ${{toJson(github)}}"
           echo "====================================================="
-          echo "github context is: ${{toJson(env)}}"
-          echo "====================================================="
-          echo "github context is: ${{toJson(vars)}}"
+          echo "github context is: {% raw %}{{ .Values.shortAlias }}{% endraw %}"
           echo "====================================================="
           echo "github context is: ${{toJson(job)}}"
           echo "====================================================="
-          echo "github context is: ${{toJson(steps)}}"
-          echo "====================================================="
-
 
