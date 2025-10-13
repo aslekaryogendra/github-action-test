@@ -2,17 +2,46 @@ name: practice1
 on: [push,workflow_dispatch]
 
 jobs:
-  change_pass:
+  code_checkout:
     runs-on: ubuntu-latest
     steps:
-      - name: Say Hello
+      - name: Say checkout
         run: |
           echo "Hello User !"
           echo "Welcome to Github Actions"
 
-  job2:
+  code_Build:
     runs-on: ubuntu-latest
     steps:
-      - name: Another Hello
+      - name: Say Code Scan
         run: |
-          echo "This is another Hello ! from Job2"
+          echo "This is for Scanning the code with sonarqube"
+
+      - name: Say Code Build
+        run: |
+          echo "This is for building the code and archieve"
+
+  code_upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say code upload
+        run: |
+          echo "Build will be uploaded to nexus"
+
+  print_context:
+    runs-on: ubuntu-latest
+    steps:
+      - name: github context
+        run: |
+          echo "github context is: ${{toJson(github)}}"
+          echo "====================================================="
+          echo "github context is: ${{toJson(env)}}"
+          echo "====================================================="
+          echo "github context is: ${{toJson(vars)}}"
+          echo "====================================================="
+          echo "github context is: ${{toJson(job)}}"
+          echo "====================================================="
+          echo "github context is: ${{toJson(steps)}}"
+          echo "====================================================="
+
+
